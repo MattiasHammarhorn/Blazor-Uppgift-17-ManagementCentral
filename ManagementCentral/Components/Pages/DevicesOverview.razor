@@ -1,0 +1,54 @@
+﻿@page "/devices"
+@page "/devicesoverview"
+@using ManagementCentral.Models
+@using ManagementCentral.Services
+@rendermode InteractiveServer
+
+<h3>DevicesOverview</h3>
+
+@if (Devices == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Device ID</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var device in Devices)
+                {
+                    <tr>
+                        <td>@device.Id</td>
+                        <td>@device.Location</td>
+                        <td>@device.LastEditedOn</td>
+                        <td>@device.Type</td>
+                        <td>@device.isActive</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    List<Device> Devices = new List<Device>();
+
+    DeviceDataService _deviceDataService = new DeviceDataService();
+
+    protected override void OnInitialized()
+    {
+        Task.Delay(2000);
+        Devices = _deviceDataService.GetDevices().ToList();
+    }
+}
