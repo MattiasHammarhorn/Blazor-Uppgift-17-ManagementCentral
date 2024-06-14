@@ -1,4 +1,4 @@
-﻿@page "/adddevice"
+﻿@page "/deviceadd"
 @using ManagementCentral.Contracts.Services
 @using ManagementCentral.Models;
 @using ManagementCentral.Services;
@@ -23,12 +23,12 @@
     </div>
 
     <div>
-        <label for="isActive"></label>
         <InputRadioGroup id="isActive" @bind-Value="@Device.isActive" placeholder="Status">
-            <InputRadio Value=true ></InputRadio>
-            <span>Online</span>
+            <label for="isActive"></label>
+            <InputRadio Value=true></InputRadio>
+            <label>Online</label>
             <InputRadio Value=false ></InputRadio>
-            <span>Offline</span>
+            <label>Offline</label>
         </InputRadioGroup>
     </div>
 

@@ -6,7 +6,7 @@
 @rendermode InteractiveServer
 
 <h3>DevicesOverview</h3>
-<button><a href="/adddevice">Add device</a></button>
+<button><a href="/deviceadd">Add device</a></button>
 
 @if (Devices == null)
 {
@@ -35,7 +35,9 @@ else
                         <td>@device.LastEditedOn</td>
                         <td>@device.Type</td>
                         <td>@device.isActive</td>
-                        <td></td>
+                        <td>
+                            <button><a href="@($"deviceedit/{device.Id}")">Edit</a></button>
+                        </td>
                     </tr>
                 }
             </tbody>

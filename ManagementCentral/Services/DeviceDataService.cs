@@ -28,6 +28,11 @@ namespace ManagementCentral.Services
             return await _repository.GetActiveDevices();
         }
 
+        public async Task<Device> GetDeviceById(Guid deviceId)
+        {
+            return await _repository.GetDeviceById(deviceId);
+        }
+
         public async Task<Device> GetLastEditedDevice()
         {
             return await _repository.GetLastEditedDevice();
@@ -36,6 +41,11 @@ namespace ManagementCentral.Services
         public async Task<Device> AddDevice(Device device)
         {
             return await _repository.AddDevice(device);
+        }
+
+        public async Task<Device> UpdateDevice(Device device)
+        {
+            return await _repository.UpdateDevice(device);
         }
     }
 }

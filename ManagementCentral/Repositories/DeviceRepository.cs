@@ -27,6 +27,11 @@ namespace ManagementCentral.Repositories
             return await _context.Devices.Where(d => d.isActive == true).ToListAsync();
         }
 
+        public async Task<Device> GetDeviceById(Guid deviceId)
+        {
+            return await _context.Devices.FirstOrDefaultAsync(d => d.Id == deviceId);
+        }
+
         public async Task<IEnumerable<Device>> GetDevices()
         {
             return await _context.Devices.ToListAsync();
@@ -40,6 +45,26 @@ namespace ManagementCentral.Repositories
         public async Task<Device> GetLastEditedDevice()
         {
             return await _context.Devices.OrderBy(d => d.LastEditedOn).SingleOrDefaultAsync();
+        }
+
+        public async Task<Device> UpdateDevice(Device device)
+        {
+            var foundDevice = await _context.Devices.FirstOrDefaultAsync(d => d.Id == device.Id);
+
+            if (foundDevice != null)
+            {
+                foundDevice.Type = device.Type;
+                foundDevice.Location = device.Location;
+                foundDevice.LastData = device.LastData;
+                foundDevice.isActive = device.isActive;
+                foundDevice.LastEditedOn = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                return foundDevice;
+            }
+
+            return null;
         }
     }
 }

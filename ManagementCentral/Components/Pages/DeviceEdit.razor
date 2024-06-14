@@ -1,0 +1,58 @@
+﻿@page "/deviceedit/{DeviceId:guid}"
+@using ManagementCentral.Contracts.Services
+@using ManagementCentral.Models;
+@rendermode InteractiveServer
+
+<h3>DeviceEdit</h3>
+
+<EditForm Enhance Model="Device" FormName="EditDeviceForm"
+    OnValidSubmit="@HandleValidSubmit"
+    method="post">
+    <div>
+        <label for="type">Type: </label>
+        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type"></InputText>
+    </div>
+
+    <div>
+        <label for="location">Location: </label>
+        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location"></InputText>
+    </div>
+
+    <div>
+        <label for="data">Data: </label>
+        <InputTextArea id="data" @bind-Value="@Device.LastData" placeholder="Enter data"></InputTextArea>
+    </div>
+
+    <div>
+        <InputRadioGroup id="type" @bind-Value="@Device.isActive">
+            <label for="isActive">Status: </label>
+            <InputRadio Value=true />
+            <label>Online</label>
+            <InputRadio Value=false />
+            <label>Offline</label>
+        </InputRadioGroup>
+    </div>
+
+    <button type="submit">Save device</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public IDeviceDataService DeviceDataService { get; set; }
+
+    [Parameter]
+    public Guid DeviceId { get; set; }
+
+    [SupplyParameterFromForm]
+    public Device Device { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Device = await DeviceDataService.GetDeviceById(DeviceId);
+    }
+
+    protected async Task HandleValidSubmit()
+    {
+        await DeviceDataService.UpdateDevice(Device);
+    }
+}
