@@ -1,0 +1,56 @@
+﻿@page "/adddevice"
+@using ManagementCentral.Contracts.Services
+@using ManagementCentral.Models;
+@using ManagementCentral.Services;
+
+<form method="post" data-enhance @onsubmit="OnSubmit" @formname="add-device-form">
+    
+    <AntiforgeryToken />
+    
+    <div>
+        <label for="type">Type</label>
+        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type"></InputText>
+    </div>
+
+    <div>
+        <label for="location">Location</label>
+        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location"></InputText>
+    </div>
+
+    <div>
+        <label for="lastData"></label>
+        <InputText id="lastData" @bind-Value="@Device.LastData" placeholder="Enter data"></InputText>
+    </div>
+
+    <div>
+        <label for="isActive"></label>
+        <InputRadioGroup id="isActive" @bind-Value="@Device.isActive" placeholder="Status">
+            <InputRadio Value=true ></InputRadio>
+            <span>Online</span>
+            <InputRadio Value=false ></InputRadio>
+            <span>Offline</span>
+        </InputRadioGroup>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+@code {
+    [SupplyParameterFromForm]
+    public Device Device { get; set; }
+
+    [Inject]
+    public IDeviceDataService DeviceDataService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Device ??= new();
+    }
+
+    private void OnSubmit()
+    {
+        DeviceDataService.AddDevice(Device);
+    }
+}
