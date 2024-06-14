@@ -1,10 +1,12 @@
 ﻿@page "/devices"
 @page "/devicesoverview"
+@using ManagementCentral.Contracts.Services
 @using ManagementCentral.Models
 @using ManagementCentral.Services
 @rendermode InteractiveServer
 
 <h3>DevicesOverview</h3>
+<button><a href="/adddevice">Add device</a></button>
 
 @if (Devices == null)
 {
@@ -44,11 +46,12 @@ else
 @code {
     List<Device> Devices = new List<Device>();
 
-    DeviceDataService _deviceDataService = new DeviceDataService();
+    [Inject]
+    public IDeviceDataService? DeviceDataService { get; set; }
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
+    
     {
-        Task.Delay(2000);
-        Devices = _deviceDataService.GetDevices().ToList();
+        Devices = (await DeviceDataService.GetDevices()).ToList();
     }
 }

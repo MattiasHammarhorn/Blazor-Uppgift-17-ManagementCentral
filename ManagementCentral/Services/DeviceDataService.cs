@@ -1,58 +1,41 @@
-﻿using ManagementCentral.Models;
+﻿using ManagementCentral.Contracts.Repositories;
+using ManagementCentral.Contracts.Services;
+using ManagementCentral.Models;
 
 namespace ManagementCentral.Services
 {
-    public class DeviceDataService
+    public class DeviceDataService : IDeviceDataService
     {
-        List<Device> devices = new List<Device>
-        {
-            new Device
-            {
-                Id = Guid.NewGuid(),
-                Location = "Jordbro",
-                isActive = true,
-                Type = "Bulldozer",
-                LastEditedOn = new DateTime(2024,5,29),
-                LastData = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            },
-            new Device
-            {
-                Id = Guid.NewGuid(),
-                Location = "Farsta",
-                isActive = true,
-                Type = "Lift",
-                LastEditedOn = new DateTime(2024,6,3),
-                LastData = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-            },
-            new Device
-            {
-                Id = Guid.NewGuid(),
-                Location = "Länna",
-                isActive = false,
-                Type = "Excavator",
-                LastEditedOn = new DateTime(2024,6,12),
-                LastData = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-            }
-        };
+        private readonly IDeviceRepository _repository;
 
-        public IEnumerable<Device> GetDevices()
+        public DeviceDataService(IDeviceRepository repository)
         {
-            return devices.ToList();
+            _repository = repository;
         }
 
-        public int GetDevicesCount()
+        public async Task<IEnumerable<Device>> GetDevices()
         {
-            return devices.Count();
+            return await _repository.GetDevices();
         }
 
-        public IEnumerable<Device> GetDevicesOnline()
+        public async Task<int> GetDevicesCount()
         {
-            return devices.Where(d => d.isActive).ToList();
+            return await _repository.GetDevicesCount();
         }
 
-        public Device GetLastEditedDevice()
+        public async Task<IEnumerable<Device>> GetActiveDevices()
         {
-            return devices.OrderBy(d => d.LastEditedOn).SingleOrDefault();
+            return await _repository.GetActiveDevices();
+        }
+
+        public async Task<Device> GetLastEditedDevice()
+        {
+            return await _repository.GetLastEditedDevice();
+        }
+
+        public async Task<Device> AddDevice(Device device)
+        {
+            return await _repository.AddDevice(device);
         }
     }
 }
