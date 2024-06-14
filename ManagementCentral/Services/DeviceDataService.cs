@@ -47,5 +47,10 @@ namespace ManagementCentral.Services
         {
             return await _repository.UpdateDevice(device);
         }
+
+        public async Task DeleteDevice(Guid deviceId)
+        {
+            await _repository.DeleteDevice(deviceId);
+        }
     }
 }

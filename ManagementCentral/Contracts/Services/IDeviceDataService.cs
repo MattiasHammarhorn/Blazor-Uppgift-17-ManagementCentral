@@ -11,5 +11,6 @@ namespace ManagementCentral.Contracts.Services
         Task<Device> GetLastEditedDevice();
         Task<Device> AddDevice(Device device);
         Task<Device> UpdateDevice(Device device);
+        Task DeleteDevice(Guid deviceId);
     }
 }

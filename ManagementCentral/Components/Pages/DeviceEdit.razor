@@ -34,6 +34,10 @@
     </div>
 
     <button type="submit">Save device</button>
+
+    <button type="button" @onclick="@DeleteDevice">
+        Delete
+    </button>
 </EditForm>
 
 @code {
@@ -51,8 +55,14 @@
         Device = await DeviceDataService.GetDeviceById(DeviceId);
     }
 
+    // Todo: Add success and fail message
     protected async Task HandleValidSubmit()
     {
         await DeviceDataService.UpdateDevice(Device);
+    }
+
+    protected async Task DeleteDevice()
+    {
+        await DeviceDataService.DeleteDevice(Device.Id);
     }
 }

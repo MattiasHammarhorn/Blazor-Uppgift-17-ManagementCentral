@@ -66,5 +66,14 @@ namespace ManagementCentral.Repositories
 
             return null;
         }
+
+        public async Task DeleteDevice(Guid deviceId)
+        {
+            var foundDevice = await _context.Devices.FirstOrDefaultAsync(d => d.Id == deviceId);
+            if (foundDevice == null) return;
+
+            _context.Devices.Remove(foundDevice);
+            await _context.SaveChangesAsync();
+        }
     }
 }
