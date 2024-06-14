@@ -7,7 +7,7 @@ namespace ManagementCentral.Contracts.Repositories
     {
         Task<IEnumerable<Device>> GetDevices();
         Task<int> GetDevicesCount();
-        Task<IEnumerable<Device>> GetActiveDevices();
+        Task<int> GetActiveDevicesCount();
         Task<Device> GetDeviceById(Guid deviceId);
         Task<Device> GetLastEditedDevice();
         Task<Device> AddDevice(Device device);

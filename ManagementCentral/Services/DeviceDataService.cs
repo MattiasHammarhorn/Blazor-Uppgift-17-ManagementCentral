@@ -23,9 +23,9 @@ namespace ManagementCentral.Services
             return await _repository.GetDevicesCount();
         }
 
-        public async Task<IEnumerable<Device>> GetActiveDevices()
+        public async Task<int> GetActiveDevicesCount()
         {
-            return await _repository.GetActiveDevices();
+            return await _repository.GetActiveDevicesCount();
         }
 
         public async Task<Device> GetDeviceById(Guid deviceId)

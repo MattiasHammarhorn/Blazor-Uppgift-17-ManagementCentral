@@ -22,9 +22,9 @@ namespace ManagementCentral.Repositories
             return addedEntity.Entity;
         }
 
-        public async Task<IEnumerable<Device>> GetActiveDevices()
+        public async Task<int> GetActiveDevicesCount()
         {
-            return await _context.Devices.Where(d => d.isActive == true).ToListAsync();
+            return await _context.Devices.Where(d => d.isActive == true).CountAsync();
         }
 
         public async Task<Device> GetDeviceById(Guid deviceId)
@@ -44,7 +44,7 @@ namespace ManagementCentral.Repositories
 
         public async Task<Device> GetLastEditedDevice()
         {
-            return await _context.Devices.OrderBy(d => d.LastEditedOn).SingleOrDefaultAsync();
+            return await _context.Devices.OrderByDescending(d => d.LastEditedOn).FirstOrDefaultAsync();
         }
 
         public async Task<Device> UpdateDevice(Device device)

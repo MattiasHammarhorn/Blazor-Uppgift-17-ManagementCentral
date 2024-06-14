@@ -1,0 +1,44 @@
+﻿@using ManagementCentral.Models;
+@using ManagementCentral.Contracts.Services;
+
+<h3>Statistics</h3>
+
+<div>
+    <label>Total devices:</label>
+    <label type="text" readonly>@DevicesCount</label>
+</div>
+<div>
+    <label>Active devices:</label>
+    <label type="text" readonly>@ActiveDevicesCount</label>
+</div>
+<div>
+    <label>Last updated device:</label>
+    <div>
+        <label type="text">Type:</label>
+        <label type="text" readonly>@LastEditedDevice.Type</label>
+    </div>
+    <div>
+        <label type="text">Device ID:</label>
+        <label type="text" readonly>@LastEditedDevice.Id</label>
+    </div>
+    <div>
+        <label type="text">Update date:</label>
+        <label type="text" readonly>@LastEditedDevice.LastEditedOn</label>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public IDeviceDataService DeviceDataService { get; set; }
+
+    public int DevicesCount { get; set; }
+    public int ActiveDevicesCount { get; set; }
+    public Device? LastEditedDevice { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DevicesCount = await DeviceDataService.GetDevicesCount();
+        ActiveDevicesCount = await DeviceDataService.GetActiveDevicesCount();
+        LastEditedDevice = await DeviceDataService.GetLastEditedDevice();
+    }
+}
