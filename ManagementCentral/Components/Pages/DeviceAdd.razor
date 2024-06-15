@@ -7,33 +7,37 @@
     
     <AntiforgeryToken />
     
-    <div>
-        <label for="type">Type</label>
-        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type"></InputText>
+    <div class="row mb-3 input-group">
+        <label for="type" class="col-3 form-label">Type: </label>
+        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type" class="col-8 form-text"></InputText>
     </div>
 
-    <div>
-        <label for="location">Location</label>
-        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location"></InputText>
+    <div class="row mb-3 input-group">
+        <label for="location" class="col-3 form-label">Location: </label>
+        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location" class="col-8 form-text"></InputText>
     </div>
 
-    <div>
-        <label for="lastData"></label>
-        <InputText id="lastData" @bind-Value="@Device.LastData" placeholder="Enter data"></InputText>
+    <div class="row mb-3 input-group">
+        <label for="lastData" class="col-3 form-label">Data: </label>
+        <InputTextArea id="lastData" @bind-Value="@Device.LastData" placeholder="Enter data" class="col-8 form-control" rows="3"></InputTextArea>
     </div>
 
-    <div>
-        <InputRadioGroup id="isActive" @bind-Value="@Device.isActive" placeholder="Status">
-            <label for="isActive"></label>
-            <InputRadio Value=true></InputRadio>
-            <label>Online</label>
-            <InputRadio Value=false ></InputRadio>
-            <label>Offline</label>
+    <div class="row mb-3 input-group">
+        <label for="isActive" class="col-3 form-label">Status: </label>
+        <InputRadioGroup id="isActive" @bind-Value="@Device.isActive" placeholder="Status" class="col-8">
+            <div class="form-check">
+                <InputRadio Value=true class="form-check-input" />
+                <label class="form-check-label">Online</label>
+            </div>
+            <div class="form-check">
+                <InputRadio Value=false class="form-check-input" />
+                <label class="form-check-label">Offline</label>
+            </div>
         </InputRadioGroup>
     </div>
 
     <div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
 

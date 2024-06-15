@@ -8,34 +8,38 @@
 <EditForm Enhance Model="Device" FormName="EditDeviceForm"
     OnValidSubmit="@HandleValidSubmit"
     method="post">
-    <div>
-        <label for="type">Type: </label>
-        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type"></InputText>
+    <div class="row mb-3 input-group">
+        <label for="type" class="col-3 form-label">Type: </label>
+        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type" class="col-8 form-control"></InputText>
     </div>
 
-    <div>
-        <label for="location">Location: </label>
-        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location"></InputText>
+    <div class="row mb-3 input-group">
+        <label for="location" class="col-3 form-label">Location: </label>
+        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location" class="col-8 form-control"></InputText>
     </div>
 
-    <div>
-        <label for="data">Data: </label>
-        <InputTextArea id="data" @bind-Value="@Device.LastData" placeholder="Enter data"></InputTextArea>
+    <div class="row mb-3 input-group">
+        <label for="data" class="col-3 form-label">Data: </label>
+        <InputTextArea id="data" @bind-Value="@Device.LastData" placeholder="Enter data" class="col-8 form-control" rows="3"></InputTextArea>
     </div>
 
-    <div>
-        <InputRadioGroup id="type" @bind-Value="@Device.isActive">
-            <label for="isActive">Status: </label>
-            <InputRadio Value=true />
-            <label>Online</label>
-            <InputRadio Value=false />
-            <label>Offline</label>
+    <div class="row mb-3 input-group">
+        <label for="isActive" class="col-3 form-label">Status: </label>
+        <InputRadioGroup id="type" @bind-Value="@Device.isActive" class="col-8">
+            <div class="form-check">
+                <InputRadio Value=true class="form-check-input" />
+                <label class="form-check-label">Online</label>
+            </div>
+            <div class="form-check">
+                <InputRadio Value=false class="form-check-input" />
+                <label class="form-check-label">Offline</label>
+            </div>
         </InputRadioGroup>
     </div>
 
-    <button type="submit">Save device</button>
+    <button type="submit" class="btn btn-success">Save device</button>
 
-    <button type="button" @onclick="@DeleteDevice">
+    <button type="button" @onclick="@DeleteDevice" class="btn btn-danger">
         Delete
     </button>
 </EditForm>

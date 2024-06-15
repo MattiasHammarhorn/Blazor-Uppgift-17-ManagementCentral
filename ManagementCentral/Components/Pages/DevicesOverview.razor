@@ -14,35 +14,42 @@
 }
 else
 {
-    <div>
-        <table>
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Device ID</th>
+                <th scope="col">Location</th>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in Devices)
+            {
                 <tr>
-                    <th>Device ID</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th></th>
+                    <td>@device.Id</td>
+                    <td>@device.Location</td>
+                    <td>@device.LastEditedOn</td>
+                    <td>@device.Type</td>
+                    @if (device.isActive)
+                    {
+                        <td class="bg-success rounded">Online</td>
+                    }
+                    else
+                    {
+                        <td class="bg-danger rounded">Offline</td>
+                    }
+                    <td>
+                        <button class="btn btn-primary">
+                            <a href="@($"deviceedit/{device.Id}")">Edit</a>
+                        </button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var device in Devices)
-                {
-                    <tr>
-                        <td>@device.Id</td>
-                        <td>@device.Location</td>
-                        <td>@device.LastEditedOn</td>
-                        <td>@device.Type</td>
-                        <td>@device.isActive</td>
-                        <td>
-                            <button><a href="@($"deviceedit/{device.Id}")">Edit</a></button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
