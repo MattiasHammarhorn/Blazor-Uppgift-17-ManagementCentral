@@ -1,48 +1,66 @@
 ﻿@page "/deviceedit/{DeviceId:guid}"
-@using ManagementCentral.Contracts.Services
+@using ManagementCentral.Contracts.Services;
 @using ManagementCentral.Models;
 @rendermode InteractiveServer
 
-<h3>DeviceEdit</h3>
-
-<EditForm Enhance Model="Device" FormName="EditDeviceForm"
-    OnValidSubmit="@HandleValidSubmit"
-    method="post">
-    <div class="row mb-3 input-group">
-        <label for="type" class="col-3 form-label">Type: </label>
-        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type" class="col-8 form-control"></InputText>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="location" class="col-3 form-label">Location: </label>
-        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location" class="col-8 form-control"></InputText>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="data" class="col-3 form-label">Data: </label>
-        <InputTextArea id="data" @bind-Value="@Device.LastData" placeholder="Enter data" class="col-8 form-control" rows="3"></InputTextArea>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="isActive" class="col-3 form-label">Status: </label>
-        <InputRadioGroup id="type" @bind-Value="@Device.isActive" class="col-8">
-            <div class="form-check">
-                <InputRadio Value=true class="form-check-input" />
-                <label class="form-check-label">Online</label>
+<div class="container p-3 mt-3 m-lg-3 mb-3 bg-light">
+    <h3>DeviceEdit</h3>
+    
+    <EditForm Enhance Model="Device" FormName="EditDeviceForm"
+        OnValidSubmit="@HandleValidSubmit"
+        method="post">
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="type" class="form-label">Type: </label>
             </div>
-            <div class="form-check">
-                <InputRadio Value=false class="form-check-input" />
-                <label class="form-check-label">Offline</label>
+            <div class="col-8">
+                <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter  type" class="form-control"></InputText>
             </div>
-        </InputRadioGroup>
-    </div>
-
-    <button type="submit" class="btn btn-success">Save device</button>
-
-    <button type="button" @onclick="@DeleteDevice" class="btn btn-danger">
-        Delete
-    </button>
-</EditForm>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="location" class="form-label">Location: </label>
+            </div>
+            <div class="col-8">
+                <InputText id="location" @bind-Value="@Device.Location"     placeholder="Enter location" class="form-control"></InputText>
+            </div>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="data" class="form-label">Data: </label>
+            </div>
+            <div class="col-8">
+                <InputTextArea id="data" @bind-Value="@Device.LastData"     placeholder="Enter data" class="form-control" rows="3"></InputTextArea>
+            </div>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="isActive" class="form-label">Status: </label>
+            </div>
+            <InputRadioGroup id="type" @bind-Value="@Device.isActive">
+                <div class="col-8">
+                    <div class="form-check">
+                        <InputRadio Value=true class="form-check-input" />
+                        <label class="form-check-label">Online</label>
+                    </div>
+                    <div class="form-check">
+                        <InputRadio Value=false class="form-check-input" />
+                        <label class="form-check-label">Offline</label>
+                    </div>
+                </div>
+            </InputRadioGroup>
+        </div>
+    
+        <button type="submit" class="btn btn-success">Save device</button>
+    
+        <button type="button" @onclick="@DeleteDevice" class="btn btn-danger">
+            Delete
+        </button>
+    </EditForm>
+</div>
 
 @code {
     [Inject]

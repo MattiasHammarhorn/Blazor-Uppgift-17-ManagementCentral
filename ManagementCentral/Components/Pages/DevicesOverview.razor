@@ -5,52 +5,76 @@
 @using ManagementCentral.Services
 @rendermode InteractiveServer
 
-<h3>DevicesOverview</h3>
-<button><a href="/deviceadd">Add device</a></button>
+<div class="container p-3 mt-3 ml-3 mb-3 bg-light">
+    <div class="row">
+        <div class="col-8">
+            <h3>DevicesOverview</h3>
+        </div>
+        <div class="col-3">
+            <a href="/deviceadd">
+                <button class="btn btn-secondary">Add device</button>
+            </a>
+        </div>
+    </div>
 
-@if (Devices == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Device ID</th>
-                <th scope="col">Location</th>
-                <th scope="col">Date</th>
-                <th scope="col">Type</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var device in Devices)
-            {
+    @if (Devices == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@device.Id</td>
-                    <td>@device.Location</td>
-                    <td>@device.LastEditedOn</td>
-                    <td>@device.Type</td>
-                    @if (device.isActive)
-                    {
-                        <td class="bg-success rounded">Online</td>
-                    }
-                    else
-                    {
-                        <td class="bg-danger rounded">Offline</td>
-                    }
-                    <td>
-                        <button class="btn btn-primary">
-                            <a href="@($"deviceedit/{device.Id}")">Edit</a>
-                        </button>
-                    </td>
+                    <th scope="col" class="fw-bold">Device ID</th>
+                    <th scope="col" class="fw-bold">Location</th>
+                    <th scope="col" class="fw-bold">Date</th>
+                    <th scope="col" class="fw-bold">Type</th>
+                    <th scope="col" class="fw-bold">Status</th>
+                    <th scope="col" class="fw-bold"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var device in Devices)
+                {
+                    <tr>
+                        <td>@device.Id</td>
+                        <td>@device.Location</td>
+                        <td>@device.LastEditedOn</td>
+                        <td>@device.Type</td>
+                        @if (device.isActive)
+                        {
+                            <td>
+                                <span style="border-radius: .3rem !important;
+                                border:solid 1.5px #186D45;
+                                background-color:#CDEFDD;">
+                                    Online
+                                </span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span style="border-radius: .3rem !important;
+                                border:solid 1.5px #A4212D;
+                                background-color:#FFE8EC;">
+                                    Offline
+                                </span>
+                            </td>
+                        }
+                        <td>
+                            <a href="@($"deviceedit/{device.Id}")">
+                                <button class="btn btn-primary">
+                                    Edit
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
     List<Device> Devices = new List<Device>();

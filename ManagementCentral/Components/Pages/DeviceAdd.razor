@@ -3,43 +3,61 @@
 @using ManagementCentral.Models;
 @using ManagementCentral.Services;
 
-<form method="post" data-enhance @onsubmit="OnSubmit" @formname="add-device-form">
-    
-    <AntiforgeryToken />
-    
-    <div class="row mb-3 input-group">
-        <label for="type" class="col-3 form-label">Type: </label>
-        <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter type" class="col-8 form-text"></InputText>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="location" class="col-3 form-label">Location: </label>
-        <InputText id="location" @bind-Value="@Device.Location" placeholder="Enter location" class="col-8 form-text"></InputText>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="lastData" class="col-3 form-label">Data: </label>
-        <InputTextArea id="lastData" @bind-Value="@Device.LastData" placeholder="Enter data" class="col-8 form-control" rows="3"></InputTextArea>
-    </div>
-
-    <div class="row mb-3 input-group">
-        <label for="isActive" class="col-3 form-label">Status: </label>
-        <InputRadioGroup id="isActive" @bind-Value="@Device.isActive" placeholder="Status" class="col-8">
-            <div class="form-check">
-                <InputRadio Value=true class="form-check-input" />
-                <label class="form-check-label">Online</label>
+<div class="container p-3 mt-3 m-lg-3 mb-3 bg-light">
+    <form method="post" data-enhance @onsubmit="OnSubmit" @formname="add-   device-form">
+        
+        <AntiforgeryToken />
+        
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="type" class="form-label">Type: </label>
             </div>
-            <div class="form-check">
-                <InputRadio Value=false class="form-check-input" />
-                <label class="form-check-label">Offline</label>
+            <div class="col-8">
+                <InputText id="type" @bind-Value="@Device.Type" placeholder="Enter  type" class="form-text"></InputText>
             </div>
-        </InputRadioGroup>
-    </div>
-
-    <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="location" class="form-label">Location: </label>
+            </div>
+            <div class="col-8">
+                <InputText id="location" @bind-Value="@Device.Location"     placeholder="Enter location" class="form-text"></InputText>
+            </div>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="lastData" class="form-label">Data: </label>
+            </div>
+            <div class="col-8">
+                <InputTextArea id="lastData" @bind-Value="@Device.LastData"     placeholder="Enter data" class="col-8 form-control" rows="3"></InputTextArea>
+            </div>
+        </div>
+    
+        <div class="row mb-3 input-group">
+            <div class="col-3">
+                <label for="isActive" class="form-label">Status: </label>
+            </div>
+            <InputRadioGroup id="isActive" @bind-Value="@Device.isActive"   placeholder="Status">
+                <div class="col-8">
+                    <div class="form-check">
+                        <InputRadio Value=true class="form-check-input" />
+                        <label class="form-check-label">Online</label>
+                    </div>
+                    <div class="form-check">
+                        <InputRadio Value=false class="form-check-input" />
+                        <label class="form-check-label">Offline</label>
+                    </div>
+                </div>
+            </InputRadioGroup>
+        </div>
+    
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 
 @code {
     [SupplyParameterFromForm]
